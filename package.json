@@ -1,0 +1,17 @@
+{
+  "name": "node-proxy-server",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node start.js"
+  },
+  "dependencies": {
+    "forever": "*",
+    "forever-monitor": "*",
+    "node-reverse-proxy": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Laborate/node-proxy-server.git"
+  }
+}
