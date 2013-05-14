@@ -58,7 +58,7 @@ function main() {
         }
 
         reverse_proxy = new node_reverse_proxy(new_servers[1])
-        reverse_proxy.start(80);
+        reverse_proxy.start(config.general.port);
         console.log("Proxy Server Restarted");
     }
     old_servers = new_servers[0];
