@@ -6,6 +6,7 @@
     "start": "node start.js"
   },
   "dependencies": {
+    "jquery": "*",
     "forever": "*",
     "forever-monitor": "*",
     "node-reverse-proxy": "*"
