@@ -37,8 +37,10 @@ function getServers() {
             $.each(config.general.accepted_repos, function(repo_key, repo_value) {
                 if(user_listing.indexOf(repo_value) > -1) {
                     repo_config = require("/home/" + user_value + "/" + repo_value +  "/config.json");
-                    servers[repo_value + "." + repo_config.profile.name + ".dev.laborate.io"] = 'http://127.0.0.1:' + repo_config.general.port
-                    list.push(repo_value + "." + repo_config.profile.name + ".dev.laborate.io", 'http://127.0.0.1:' + repo_config.general.port)
+                    if(repo_config.general.port && repo_config.profile.name) {
+                        servers[repo_value + "." + repo_config.profile.name + ".dev.laborate.io"] = 'http://127.0.0.1:' + repo_config.general.port
+                        list.push(repo_value + "." + repo_config.profile.name + ".dev.laborate.io", 'http://127.0.0.1:' + repo_config.general.port)
+                    }
                 }
             });
         });
@@ -56,7 +58,6 @@ function main() {
         if(reverse_proxy) {
             reverse_proxy.proxyServer.close();
         }
-
         reverse_proxy = new node_reverse_proxy(new_servers[1])
         reverse_proxy.start(config.general.port);
         console.log("Proxy Server Restarted");
@@ -64,5 +65,8 @@ function main() {
     old_servers = new_servers[0];
 }
 
+//Start For First Time
 main();
-setInterval(main, 300000); //5 Minutes
+
+//Run Once Every Minute
+setInterval(main, 60000);
