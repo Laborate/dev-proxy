@@ -68,5 +68,5 @@ function main() {
 //Start For First Time
 main();
 
-//Run Once Every Minute
-setInterval(main, 60000);
+//Run Once Every Minute If Not In Production
+if(process.env.NODE_ENV != "production") setInterval(main, 60000);
