@@ -2,7 +2,10 @@
     "general": {
         "port": 80,
         "environment": "development",
-        "accepted_repos": ["code"]
+        "accepted_repos": {
+            "landing": "",
+            "code": "code"
+        }
     },
     "forever": {
         "silent": false,

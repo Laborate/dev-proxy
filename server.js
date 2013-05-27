@@ -23,9 +23,15 @@ function getServers() {
     if(process.env.NODE_ENV == "production") {
         $.each(config.general.accepted_repos, function(repo_key, repo_value) {
             root_listing = fs.readdirSync("/root");
-            if(root_listing.indexOf(repo_value) > -1) {
-                repo_config = require("/root/" + repo_value +  "/config.json");
-                servers[repo_value + ".laborate.io"] = 'http://127.0.0.1:' + repo_config.general.port
+            if(root_listing.indexOf(repo_key) > -1) {
+                repo_config = require("/root/" + repo_key +  "/config.json");
+                if(repo_value) {
+                    repo_value = repo_value + ".";
+                } else {
+                    repo_value = "";
+                }
+                servers[repo_value + "laborate.io"] = 'http://127.0.0.1:' + repo_config.general.port
+                list.push(repo_value + "laborate.io", 'http://127.0.0.1:' + repo_config.general.port)
             }
         });
     } else {
@@ -35,11 +41,16 @@ function getServers() {
         $.each(home_directory, function(user_key, user_value) {
             user_listing = fs.readdirSync("/home/" + user_value);
             $.each(config.general.accepted_repos, function(repo_key, repo_value) {
-                if(user_listing.indexOf(repo_value) > -1) {
-                    repo_config = require("/home/" + user_value + "/" + repo_value +  "/config.json");
+                if(user_listing.indexOf(repo_key) > -1) {
+                    repo_config = require("/home/" + user_value + "/" + repo_key +  "/config.json");
                     if(repo_config.general.port && repo_config.profile.name) {
-                        servers[repo_value + "." + repo_config.profile.name + ".dev.laborate.io"] = 'http://127.0.0.1:' + repo_config.general.port
-                        list.push(repo_value + "." + repo_config.profile.name + ".dev.laborate.io", 'http://127.0.0.1:' + repo_config.general.port)
+                        if(repo_value) {
+                            repo_value = repo_value + ".";
+                        } else {
+                            repo_value = "";
+                        }
+                        servers[repo_value + repo_config.profile.name + ".dev.laborate.io"] = 'http://127.0.0.1:' + repo_config.general.port
+                        list.push(repo_value + repo_config.profile.name + ".dev.laborate.io", 'http://127.0.0.1:' + repo_config.general.port)
                     }
                 }
             });
