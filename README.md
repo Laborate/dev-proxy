@@ -27,5 +27,6 @@ that need to be reversed proxied.
 Start Server If Down
 ------------------------------
 ```bash
-npm start
+cd ~/node-proxy-server;
+forever start start.js;
 ```
