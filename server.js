@@ -4,13 +4,6 @@ var $ = require("jquery");
 var config = require("./config");
 var node_reverse_proxy = require('node-reverse-proxy');
 
-/* Prototype Functions */
-Array.prototype.remove = function(from, to) {
-  var rest = this.slice((to || from) + 1 || this.length);
-  this.length = from < 0 ? this.length + from : from;
-  return this.push.apply(this, rest);
-};
-
 /* Global Vars */
 var old_servers;
 var reverse_proxy;
@@ -36,7 +29,7 @@ function getServers() {
         });
     } else {
         var home_directory = fs.readdirSync("/home/");
-        home_directory.remove(home_directory.indexOf("archived_users"));
+        home_directory.splice($.inArray("archived_users", home_directory), 1);
 
         $.each(home_directory, function(user_key, user_value) {
             user_listing = fs.readdirSync("/home/" + user_value);
