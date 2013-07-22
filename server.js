@@ -3,6 +3,7 @@ var fs = require("fs");
 var $ = require("jquery");
 var config = require("./config");
 var node_reverse_proxy = require('node-reverse-proxy');
+var http = require('http');
 
 /* Global Vars */
 var old_servers;
@@ -24,12 +25,22 @@ function getServers() {
                     } else {
                         domain_value = "";
                     }
-                    servers[domain_value + "laborate.io"] = 'http://127.0.0.1:' + repo_config.general.port
-                    list.push(domain_value + "laborate.io", 'http://127.0.0.1:' + repo_config.general.port)
+                    servers[domain_value + "laborate.io"] = 'http://127.0.0.1:' + repo_config.general.port;
+                    list.push(domain_value + "laborate.io", 'http://127.0.0.1:' + repo_config.general.port);
                 });
             }
         });
     } else {
+        /* Redirect dev.laborate.io -> laborate.io */
+        http.createServer(function(req, res) {
+            res.writeHead(302, {
+              'Location': 'http://laborate.io'
+            });
+            res.end();
+        }).listen(8080);
+        servers["dev.laborate.io"] = 'http://127.0.0.1:8080';
+
+        /* Find All Users and Acceptable Repos */
         var home_directory = fs.readdirSync("/home/");
         home_directory.splice($.inArray("archived_users", home_directory), 1);
 
@@ -45,8 +56,8 @@ function getServers() {
                             } else {
                                 domain_value = "";
                             }
-                            servers[domain_value + repo_config.profile.name + ".dev.laborate.io"] = 'http://127.0.0.1:' + repo_config.general.port
-                            list.push(domain_value + repo_config.profile.name + ".dev.laborate.io", 'http://127.0.0.1:' + repo_config.general.port)
+                            servers[domain_value + repo_config.profile.name + ".dev.laborate.io"] = 'http://127.0.0.1:' + repo_config.general.port;
+                            list.push(domain_value + repo_config.profile.name + ".dev.laborate.io", 'http://127.0.0.1:' + repo_config.general.port);
                         });
                     }
                 }
