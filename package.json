@@ -6,7 +6,10 @@
     "jquery": "*",
     "forever": "*",
     "forever-monitor": "*",
-    "node-reverse-proxy": "*"
+    "node-reverse-proxy": "*",
+    "node-fs": "*",
+    "crontab": "*",
+    "npm": "*"
   },
   "repository": {
     "type": "git",

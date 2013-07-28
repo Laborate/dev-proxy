@@ -8,17 +8,15 @@
         ]
     },
     "forever": {
+        "uid": "node-proxy-server",
         "silent": false,
         "watch": true,
         "watch_directory": ".",
         "watch_ignore_dot": true,
-        "watch_ignore_patterns": [
-            "logs/*",
-            "*.less"
-        ],
+        "watch_ignore_patterns": [],
         "max_failures": 10000000000000000,
-        "forever_log": "logs/forever.log",
-        "output_log": "logs/output.log",
-        "error_log": "logs/errors.log"
+        "forever_log": "../logs/node-proxy-server/forever.log",
+        "output_log": "../logs/node-proxy-server/output.log",
+        "error_log": "../logs/node-proxy-server/errors.log"
     }
 }
