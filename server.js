@@ -5,13 +5,18 @@ var config = require("./config");
 var node_reverse_proxy = require('node-reverse-proxy');
 var http = require('http');
 
-/* Global Vars */
-var old_servers;
-var reverse_proxy;
+if(process.env.NODE_ENV != "production") {
+    /* Redirect dev.laborate.io -> laborate.io */
+    http.createServer(function(req, res) {
+        res.writeHead(302, {
+          'Location': 'http://laborate.io'
+        });
+        res.end();
+    }).listen(8080);
+}
 
 /* Core Functions */
 function getServers() {
-    var list = []
     var servers = {}
 
     if(process.env.NODE_ENV == "production") {
@@ -26,18 +31,10 @@ function getServers() {
                         domain_value = "";
                     }
                     servers[domain_value + "laborate.io"] = 'http://127.0.0.1:' + repo_config.general.port;
-                    list.push(domain_value + "laborate.io", 'http://127.0.0.1:' + repo_config.general.port);
                 });
             }
         });
     } else {
-        /* Redirect dev.laborate.io -> laborate.io */
-        http.createServer(function(req, res) {
-            res.writeHead(302, {
-              'Location': 'http://laborate.io'
-            });
-            res.end();
-        }).listen(8080);
         servers["dev.laborate.io"] = 'http://127.0.0.1:8080';
 
         /* Find All Users and Acceptable Repos */
@@ -57,35 +54,16 @@ function getServers() {
                                 domain_value = "";
                             }
                             servers[domain_value + repo_config.profile.name + ".dev.laborate.io"] = 'http://127.0.0.1:' + repo_config.general.port;
-                            list.push(domain_value + repo_config.profile.name + ".dev.laborate.io", 'http://127.0.0.1:' + repo_config.general.port);
                         });
                     }
                 }
             });
         });
     }
-    return [list, servers];
+    return servers
 }
 
-function checkForChanges(servers_one, servers_two) {
-    return !($(servers_one).not(servers_two).length == 0 && $(servers_two).not(servers_one).length == 0);
-}
-
-function main() {
-    var new_servers = getServers();
-    if(checkForChanges(old_servers, new_servers[0])) {
-        if(reverse_proxy) {
-            reverse_proxy.proxyServer.close();
-        }
-        reverse_proxy = new node_reverse_proxy(new_servers[1])
-        reverse_proxy.start(config.general.port);
-        console.log("Proxy Server Restarted");
-    }
-    old_servers = new_servers[0];
-}
-
-//Start For First Time
-main();
-
-//Run Once Every Minute If Not In Production
-if(process.env.NODE_ENV != "production") setInterval(main, 60000);
+//Start Proxy Server
+GLOBAL.reverse_proxy = new node_reverse_proxy(getServers());
+GLOBAL.reverse_proxy.start(config.general.port);
+console.log("Proxy Server Restarted");

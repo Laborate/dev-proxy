@@ -16,7 +16,7 @@
         "watch_ignore_patterns": [],
         "max_failures": 10000000000000000,
         "forever_log": "../logs/node-proxy-server/forever.log",
-        "output_log": "../logs/node-proxy-server/output.log",
-        "error_log": "../logs/node-proxy-server/errors.log"
+        "output_log": "../logs/node-proxy-server/forever.output",
+        "error_log": "../logs/node-proxy-server/forever.error"
     }
 }
