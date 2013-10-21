@@ -4,7 +4,8 @@
         "environment": "development",
         "accepted_repos": [
             "landing",
-            "code"
+            "code",
+	    "middleware"
         ]
     },
     "forever": {

@@ -60,6 +60,8 @@ function getServers() {
             });
         });
     }
+    
+    console.log(servers);
     return servers
 }
 
