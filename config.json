@@ -5,7 +5,11 @@
         "accepted_repos": [
             "landing",
             "code",
-	    "middleware"
+            "middleware"
+        ],
+        "domains": [
+            "laborate.io",
+            "laborate.me"
         ]
     },
     "forever": {
