@@ -42,8 +42,8 @@ var child = new (forever.Monitor)(__dirname + '/server.js', {
         'NODE_ENV': "development"
     },
 
-    logFile: __dirname + "/" + config.forever.forever_log,
     outFile: __dirname + "/" + config.forever.output_log,
+    errFile: __dirname + "/" + config.forever.error_log,
 
     killTree: true
 });
