@@ -3,8 +3,6 @@
         "port": 80,
         "environment": "development",
         "accepted_repos": [
-            "landing",
-            "code",
             "middleware"
         ],
         "domains": [
@@ -13,15 +11,14 @@
         ]
     },
     "forever": {
-        "uid": "node-proxy-server",
+        "uid": "dev-proxy",
         "silent": false,
         "watch": true,
         "watch_directory": ".",
         "watch_ignore_dot": true,
         "watch_ignore_patterns": [],
-        "max_failures": 10000000000000000,
-        "forever_log": "../logs/node-proxy-server/forever.log",
-        "output_log": "../logs/node-proxy-server/forever.output",
-        "error_log": "../logs/node-proxy-server/forever.error"
+        "max_failures": 1000,
+        "forever_log": "../logs/dev-proxy/log.out",
+        "output_log": "../logs/dev-proxy/log.error"
     }
 }
