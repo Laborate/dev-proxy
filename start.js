@@ -39,12 +39,11 @@ var child = new (forever.Monitor)(__dirname + '/server.js', {
     watchIgnorePatterns: config.forever.watch_ignore_patterns,
 
     env: {
-        'NODE_ENV': config.general.environment
+        'NODE_ENV': "development"
     },
 
     logFile: __dirname + "/" + config.forever.forever_log,
-    outFile: __dirname + "/" + config.forever.output_log,
-    errFile: __dirname + "/" + config.forever.error_log,
+    outFile: __dirname + "/" + config.forever.output_log
 
     killTree: true
 });
