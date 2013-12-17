@@ -1,7 +1,6 @@
 {
     "general": {
         "port": 80,
-        "environment": "development",
         "accepted_repos": [
             "middleware"
         ],
