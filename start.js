@@ -43,7 +43,7 @@ var child = new (forever.Monitor)(__dirname + '/server.js', {
     },
 
     logFile: __dirname + "/" + config.forever.forever_log,
-    outFile: __dirname + "/" + config.forever.output_log
+    outFile: __dirname + "/" + config.forever.output_log,
 
     killTree: true
 });
