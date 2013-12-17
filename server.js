@@ -5,7 +5,6 @@ var config = require("./config");
 var node_reverse_proxy = require('node-reverse-proxy');
 var http = require('http');
 
-
 /* Redirect dev.laborate.io -> laborate.io */
 http.createServer(function(req, res) {
     res.writeHead(302, {
@@ -13,7 +12,6 @@ http.createServer(function(req, res) {
     });
     res.end();
 }).listen(8080);
-
 
 /* Core Functions */
 function getServers() {
@@ -51,6 +49,5 @@ function getServers() {
 }
 
 //Start Proxy Server
-GLOBAL.reverse_proxy = new node_reverse_proxy(getServers());
-GLOBAL.reverse_proxy.start(config.general.port);
-console.log("Proxy Server Restarted");
+new node_reverse_proxy(getServers()).start(config.general.port);
+console.log("Proxy Server Started");
