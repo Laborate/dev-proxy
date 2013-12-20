@@ -18,6 +18,7 @@ function getServers() {
     var servers = {}
 
     $.each(config.general.domains, function(key, domain) {
+        servers[domain] = 'http://127.0.0.1:8080';
         servers["dev." + domain] = 'http://127.0.0.1:8080';
 
         /* Find All Users and Acceptable Repos */
