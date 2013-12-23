@@ -1,3 +1,4 @@
+var $ = require("jquery");
 var fs = require('node-fs');
 var config = require('./config');
 var forever = require('forever-monitor');
@@ -34,9 +35,11 @@ var child = new (forever.Monitor)(__dirname + '/server.js', {
     silent: config.forever.silent,
 
     watch: config.forever.watch,
-    watchDirectory: config.forever.watch_directory,
+    watchDirectory: __dirname + "/" + config.forever.watch_directory,
     watchIgnoreDotFiles: config.forever.watch_ignore_dot,
-    watchIgnorePatterns: config.forever.watch_ignore_patterns,
+    watchIgnorePatterns: $.map(config.forever.watch_ignore_patterns, function(value) {
+        return __dirname + "/" + value;
+    }),
 
     env: {
         'NODE_ENV': "development"

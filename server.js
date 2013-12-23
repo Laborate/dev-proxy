@@ -18,9 +18,6 @@ function getServers() {
     var servers = {}
 
     $.each(config.general.domains, function(key, domain) {
-        servers[domain] = 'http://127.0.0.1:8080';
-        servers["dev." + domain] = 'http://127.0.0.1:8080';
-
         /* Find All Users and Acceptable Repos */
         var home_directory = fs.readdirSync("/home/");
         home_directory.splice($.inArray("archived_users", home_directory), 1);
@@ -45,10 +42,14 @@ function getServers() {
         });
     });
 
-    console.log(servers);
+    servers[""] = 'http://127.0.0.1:8080';
     return servers
 }
 
 //Start Proxy Server
-new node_reverse_proxy(getServers()).start(config.general.port);
+var servers = getServers();
+new node_reverse_proxy(servers)
+    .start(config.general.port);
+
+console.log(servers);
 console.log("Proxy Server Started");

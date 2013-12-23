@@ -15,7 +15,11 @@
         "watch": true,
         "watch_directory": ".",
         "watch_ignore_dot": true,
-        "watch_ignore_patterns": [],
+        "watch_ignore_patterns": [
+            "node_modules/**",
+            ".*/**",
+            ".*"
+        ],
         "max_failures": 1000,
         "output_log": "../logs/dev-proxy/log.out",
         "error_log": "../logs/dev-proxy/log.error"
