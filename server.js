@@ -27,14 +27,21 @@ function getServers() {
             $.each(config.general.accepted_repos, function(repo_key, repo_value) {
                 if(user_listing.indexOf(repo_value) > -1) {
                     repo_config = require("/home/" + user_value + "/" + repo_value +  "/config.json");
-                    if(repo_config.general.port && repo_config.general.subdomains && repo_config.profile.name) {
+                    if(repo_config.general.ports && repo_config.general.subdomains && repo_config.profile.name) {
                         $.each(repo_config.general.subdomains, function(domain_key, domain_value) {
                             if(domain_value) {
                                 domain_value = domain_value + ".";
                             } else {
                                 domain_value = "";
                             }
-                            servers[domain_value + repo_config.profile.name + ".dev." + domain] = 'http://127.0.0.1:' + repo_config.general.port;
+
+                            if(repo_config.general.ssl) {
+                                var port = repo_config.general.ports.https;
+                            } else {
+                                var port = repo_config.general.ports.http;
+                            }
+
+                            servers[domain_value + repo_config.profile.name + ".dev." + domain] = 'http://127.0.0.1:' + port;
                         });
                     }
                 }
