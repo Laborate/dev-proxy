@@ -8,7 +8,7 @@ var http = require('http');
 /* Redirect dev.laborate.io -> laborate.io */
 http.createServer(function(req, res) {
     res.writeHead(302, {
-      'Location': 'https://laborate.io'
+      'Location': 'http://laborate.io'
     });
     res.end();
 }).listen(8080);
