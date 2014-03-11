@@ -47,6 +47,8 @@ function getServers() {
                 }
             });
         });
+
+        servers["status.dev." + domain] = 'http://127.0.0.1:5555';
     });
 
     servers[""] = 'http://127.0.0.1:8080';
