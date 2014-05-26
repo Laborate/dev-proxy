@@ -21,6 +21,10 @@ crontab.load(function(err, tab) {
 
         tab.remove(tab.findComment("laborate_proxy_server"));
         tab.create(sysCommand, "laborate_proxy_server").everyReboot();
+
+        tab.remove(tab.findComment("scout_realtime"));
+        tab.create(util.format('%s && /usr/local/bin/scout_realtime start', exportCommand), "scout_realtime").everyReboot();
+
         tab.save();
     });
 });
